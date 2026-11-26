@@ -16,6 +16,15 @@ export function consultarAPI(ciudad, pais) {
                 ui.mostrarClima(datos);
             }
         })
+        .catch(error => {
+            ui.limpiarResultado();
+
+            const mensaje = error.message === 'Ciudad no encontrada'
+                ? error.message
+                : 'Ocurrió un error al consultar el clima. Verifica tu conexión e inténtalo nuevamente.';
+
+            ui.mostrarAlerta(mensaje);
+        });
 }
 
 export function kelvinACentigrados(grados) {
