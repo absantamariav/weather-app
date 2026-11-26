@@ -12,7 +12,7 @@ export default class UI {
         const strong = document.createElement('STRONG');
         const span = document.createElement('SPAN');
 
-        alerta.classList.add('bg-red-100', 'border-red-400', 'text-red-700', 'px-4', 'py-3', 'rounded', 'max-w-md', 'mx-auto', 'mt-6', 'text-center');
+        alerta.classList.add('bg-red-500', 'text-red-100', 'px-5', 'py-3', 'rounded', 'max-w-md', 'mx-auto', 'mt-6', 'text-center');
         alerta.dataset.type = 'alerta'
 
         strong.classList.add('font-bold');
@@ -29,6 +29,14 @@ export default class UI {
         setTimeout(() => {
             alerta.remove();
         }, 2500);
+
+        if (!resultado.firstElementChild) {
+            const textoBienvenida = document.createElement('p');
+            textoBienvenida.classList.add('text-center', 'text-white', 'mt-6');
+            textoBienvenida.textContent = 'Agrega tu ciudad y país, el resultado se mostrará aquí';
+
+            resultado.appendChild(textoBienvenida)
+        }
     }
 
     mostrarClima(datos) {
@@ -66,9 +74,24 @@ export default class UI {
     }
 
     limpiarResultado() {
-        const existeResultado = document.querySelector('.resultadoDiv')
-        if (existeResultado) {
-            existeResultado.remove();
+        while (resultado.firstElementChild) {
+            resultado.firstElementChild.remove();
         }
+    }
+
+    spinner() {
+        const divSpinner = document.createElement('DIV');
+        divSpinner.classList.add('spinner');
+
+        const dot1 = document.createElement('DIV');
+        dot1.classList.add('dot1');
+
+        const dot2 = document.createElement('DIV');
+        dot2.classList.add('dot2');
+
+        divSpinner.appendChild(dot1);
+        divSpinner.appendChild(dot2);
+
+        resultado.appendChild(divSpinner);
     }
 }
